@@ -66,8 +66,8 @@ export function run(input) {
         return [value, 2, added];
       }
       const d = m.index;
-      const ch = m[0];
-      if (ch === ',') {
+      const ch = text.charCodeAt(d);
+      if (ch === 44) {
         if (d > pos) {
           value += text.slice(pos, d);
           added += d - pos;
@@ -75,7 +75,7 @@ export function run(input) {
         pos = d + 1;
         return [value, 0, added];
       }
-      if (ch === '\n') {
+      if (ch === 10) {
         if (d > pos) {
           value += text.slice(pos, d);
           added += d - pos;
@@ -119,8 +119,8 @@ export function run(input) {
       const m = QSP.exec(text);
       if (m === null) break; // no closing quote ahead
       const d = m.index;
-      const ch = m[0];
-      if (ch === '"') {
+      const ch = text.charCodeAt(d);
+      if (ch === 34) {
         if (d + 1 < n && text.charCodeAt(d + 1) === 34) {
           // A doubled quote is one literal quote.
           if (parts === null) parts = [];
@@ -134,7 +134,7 @@ export function run(input) {
         closeIdx = d;
         break;
       }
-      if (ch === '\r') {
+      if (ch === 13) {
         // CRLF and a lone CR inside quotes are each one LF.
         if (parts === null) parts = [];
         parts.push(text.slice(segStart, d));
